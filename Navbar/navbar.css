@@ -1,0 +1,62 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: rgb(0, 0, 0);
+    --navbar-bg: #f0f0f0;
+    --link-hover: #ddd;
+}
+
+body.dark-theme {
+    --bg-color: rgba(18, 18, 18, 0.68);
+    --text-color: #ffffff;
+    --navbar-bg: #333;
+    --link-hover: #575757;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.navbar {
+    background-color: var(--navbar-bg);
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.navbar .site-name {
+    color: var(--text-color);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 14px 20px;
+    text-align: center;
+}
+
+.nav-links a:hover {
+    background-color: var(--link-hover);
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 20px;
+    cursor: pointer;
+}
