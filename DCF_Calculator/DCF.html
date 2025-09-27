@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DCF Calculator</title>
+  <script src="../Navbar/navbar.html" defer></script>
+  <link rel="stylesheet" href="../Navbar/navbar.css">
+  <script src="../Navbar/navbar.js" defer></script>
+
+  <script src="DCF.js" defer></script>
+  <link rel="stylesheet" href="DCF.css">
+</head>
+
+<body>
+
+<div class="navbar" id="navbar">
+    <div class="site-name">Dividend</div>
+    <div class="nav-links">
+        <a href="../Navbar/navbar.html">Home</a>
+        <a href="../DCF_calculator/DCF.html">DCS</a>
+        <a href="../Snowball/Snowball.html">Snowball</a>
+        <a>Subscription</a>
+        <a href="../Dividend_Tracker/Portfolio/Portfolio.html">Dividend Tracker</a>
+    </div>
+
+    <button id="theme-toggle" class="theme-toggle" onclick="initThemeToggle()">🌙</button>
+</div>
+
+<h1>DCF = Discounted Cash Flow</h1>
+
+<div class="form-container">
+    <label>Current Share Price:
+    <input type="number" id="currentSharePrice" placeholder="Ex:150$" required>
+    </label>
+
+    <label>Free Cash Flow Per Share (FCF):
+    <input type="number" id="FCF" placeholder="Ex:7.05$" required>
+    </label>
+
+    <label>FCF Growth Rate (g):
+    <input type="number" id="Growth" placeholder="Ex:5%" required>
+    </label>
+
+    <label>Total Years To Simulate (n):
+    <input type="number" id="Years" placeholder="Ex:50 years" required>
+    </label>
+
+    <label>Discount Rate (k):
+    <input type="number" id="Discount" placeholder="Ex:12%" required>
+    </label>
+
+
+  <button onclick="Input()">Regn ut</button>
+  <div id="value"></div>
+</div>
+</body>
+</html>
