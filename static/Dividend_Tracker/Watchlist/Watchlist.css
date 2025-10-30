@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 0; /* remove default margin for consistency */
+}
+
+/* Make tables responsive */
+table {
+    border-collapse: collapse;
+    width: 100%;        /* takes all space of content2 */
+    margin: 20px 0;     /* space below button */
+    overflow-x: auto;
+    display: block;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    word-wrap: break-word; /* prevents overflow of long text */
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+h2 {
+    text-align: center;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+button {
+    padding: 6px 12px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.content {
+    border: 2px solid black;
+    border-radius: 50px;
+    padding: 40px 20px 20px 20px;  /* extra top padding for button space */
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-top: 0;
+
+    width: 50%;
+    max-width: 1200px;            /* 👈 hard limit so it doesn’t stretch too wide */
+    margin-left: auto;
+    margin-right: auto;
+
+    position: relative;           /* keep absolute children inside */
+}
+
+#watchlistTable {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    overflow-x: auto;
+}
+
+#watchlistTable th, #watchlistTable td {
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+    background-color: #f9f9f9;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    th, td {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    button {
+        padding: 4px 8px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    table, #watchlistTable {
+        font-size: 0.8em;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    h2 {
+        font-size: 1em;
+    }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Chat</title>
+    <script src="../Sidebar/Sidebar.js" defer></script>
+    <script>
+        fetch("../Sidebar/Sidebar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("sidebar").innerHTML = data;
+                const link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.href = "../Sidebar/Sidebar.css";  // Adjust path accordingly
+                document.head.appendChild(link);
+            });
+    </script>
+    <style>
+        h2{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="sidebar"></div>
+<h2>COMMING SOON</h2>
+</body>
+</html>

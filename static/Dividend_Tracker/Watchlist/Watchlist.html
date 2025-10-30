@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watchlist</title>
+    <script src="../Sidebar/Sidebar.js" defer></script>
+    <link rel="stylesheet" href="../Sidebar/Sidebar.css">
+    <link rel="stylesheet" href="Watchlist.css">
+    <script src="Watchlist.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("../Sidebar/Sidebar.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("sidebar").innerHTML = data;
+                    const link = document.createElement("link");
+                    //link.rel = "stylesheet";
+                    //link.href = "../Sidebar/Sidebar.css";
+                    document.head.appendChild(link);
+                });
+        });
+    </script>
+
+</head>
+<body>
+<div id="sidebar"></div>
+
+<div class="content">
+    <h2>Watchlist</h2>
+    <table id="watchlistTable">
+        <thead>
+        <tr>
+            <th>Ticker Symbol</th>
+            <th>Stock Name</th>
+            <th>Cost Per Share</th>
+            <th>Market Cap</th>
+            <th>Dividend Yield</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
