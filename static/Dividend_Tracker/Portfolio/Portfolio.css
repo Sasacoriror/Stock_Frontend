@@ -1,46 +1,48 @@
 header {
-background-color: #0f0f0f;
-color: white;
-width: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 1rem;
-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-gap: 0.5rem;
+    position: fixed;
+    background-color: rgb(18, 18, 18);
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(41, 111, 202, 0.541);
+    gap: 0.5rem;
+    z-index: 1000;
 }
 
 
 header select {
-padding: 0.5rem 0.75rem;
-border-radius: 6px;
-border: 1px solid #d1d5db;
-font-size: 1rem;
-background: white;
-color: #111827;
-width: 20%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    background: white;
+    color: #111827;
+    width: 20%;
 }
 
 
 header button {
-background-color: #26282c;
-color: white;
-border: none;
-border-radius: 50%;
-width: 36px;
-height: 36px;
-font-size: 1.5rem;
-line-height: 0;
-cursor: pointer;
-display: flex;
-justify-content: center;
-align-items: center;
-transition: background 0.2s;
+    background-color: #26282c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+    line-height: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
 }
 
 
 header button:hover {
-background-color: #c6c7ca;
+    background-color: #c6c7ca;
 }
 
 body {
@@ -103,7 +105,7 @@ button {
     display: inline-block;
     background: white;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin-top: 5%;
+    margin-top: 10%;
 
     width: 70%;
 }
@@ -121,6 +123,7 @@ button {
     margin-left: auto;
     margin-right: auto;
     position: relative;
+    margin-top: 5%;
 }
 
 .add-btn {
@@ -160,6 +163,12 @@ button {
     font-size: 1em;
     background-color: #f9f9f9;
 }
+
+#sidebar {
+  position: fixed; /* or absolute, depending on your layout */
+  z-index: 2000; /* higher than header */
+}
+
 
 
 @media (max-width: 768px) {

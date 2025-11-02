@@ -1,15 +1,56 @@
-const apiUrl = "http://localhost:8080/api/v1/findAll";
+window.addEventListener("DOMContentLoaded", fetchPortfolios);
 
-async function fetchStocks() {
+async function fetchPortfolios() {
     try {
-        const response = await fetch(apiUrl);
+        const response = await fetch("http://localhost:8080/api/v2/portfolios");
+        const data = await response.json();
+        renderOptions(data);
+
+        if (data.length > 0) {
+            const firstId = data[0].id;
+            document.getElementById("selectPortfolio").value = firstId;
+            console.log("Loading first portfolio: "+ firstId);
+            fetchStocks(firstId);
+        }
+
+    } catch (error){
+        console.log("Error fetching portfolios: "+error);
+    }
+}
+
+function renderOptions(portfolios){
+    const select = document.getElementById('selectPortfolio');
+
+    portfolios.forEach(data => {
+        const option = document.createElement('option');
+        option.value = data.id;
+        option.textContent = data.name;
+        select.appendChild(option);
+    });
+
+    select.addEventListener("change", (event) => {
+        const selectedID = event.target.value;
+        console.log("Portfolio ID: "+selectedID);
+        fetchStocks(selectedID);
+    });
+}
+
+var IDs = 0;
+
+async function fetchStocks(id) {
+
+    IDs = id;
+    
+    try {
+        const response = await fetch(`http://localhost:8080/api/v2/${id}/stocks`);
         const data = await response.json();
         renderTable(data);
         renderSummary(data);
     } catch (error) {
-        console.error("Error fetching stock data:", error);
+        console.error("Error fetching stock data: "+error);
     }
 }
+
 
 function renderTable(stocks) {
     const tbody = document.querySelector('#stocksTable tbody');
@@ -42,10 +83,12 @@ function renderTable(stocks) {
         });
 
         const actionTd = document.createElement('td');
+        console.log("Update ID part1 : "+stock.id);
         actionTd.innerHTML = `
             <button class="delete-btn" onclick="deleteRow('${stock.id}')">Delete</button>
             <button class="edit-btn" onclick="openEditRow('${stock.id}', '${stock.sharesInn}', '${stock.priceInn}')">Edit</button>
         `;
+        console.log("Update ID part2 : "+stock.id);
         tr.dataset.id = stock.id;
         tr.appendChild(actionTd);
         tbody.appendChild(tr);
@@ -89,11 +132,11 @@ function renderSummary(stocks) {
     pProfit.style.color = percentage >= 0 ? "green" : "red";
 }
 
-let stockName= "";
+let id= "";
 
-function openEditRow(id, shares, price){
+function openEditRow(id1, shares, price){
 
-    stockName = id;
+    id = id1;
     document.getElementById("editShares").value = shares;
     document.getElementById("editPrice").value = price;
     document.getElementById("editModal").style.display = "block";
@@ -104,7 +147,7 @@ async function editRow(){
     let sharesInn = document.getElementById("editShares").value;
     let priceInn = document.getElementById("editPrice").value;
 
-    const response = await fetch(`http://localhost:8080/api/v1/updateData/${stockName}`, {
+    const response = await fetch(`http://localhost:8080/api/v1/updateData/${id}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json" },
         body: JSON.stringify({sharesInn, priceInn})
@@ -112,7 +155,7 @@ async function editRow(){
     await response.text();
     console.log("Sending to backend to update data.")
     closeEditModal();
-    fetchStocks();
+    fetchStocks(IDs);
 }
 
 window.onclick = function(event) {
@@ -130,9 +173,9 @@ function deleteRow(id) {
     fetch(`http://localhost:8080/api/v1/delete/${id}`, {
         method: 'DELETE'
     })
-        .then(() => fetchStocks())
+        .then(() => fetchStocks(IDs))
         .catch(error => console.error("Delete failed:", error));
 }
 
 //Load page
-fetchStocks();
+fetchStocks(IDs);

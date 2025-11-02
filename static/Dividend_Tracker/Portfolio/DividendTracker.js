@@ -51,7 +51,7 @@ window.onclick = function(event) {
 function noEmptyFields(ticker, price, shares){
 
     if (ticker.trim() === '' || price.trim() === '' || shares.trim() === ''){
-        alert("All boxes must be gilled inn")
+        alert("All boxes must be filled inn!")
         return false;
     }
     return true;

@@ -18,8 +18,6 @@
                 .then(data => {
                     document.getElementById("sidebar").innerHTML = data;
                     const link = document.createElement("link");
-                    //link.rel = "stylesheet";
-                    //link.href = "../Sidebar/Sidebar.css";
                     document.head.appendChild(link);
                 });
         });
@@ -51,8 +49,8 @@
         <th>Unrealised Gain/Loss</th>
         <th>Percentage Gain/Loss</th>
         <th>Yearly Dividend Income</th>
-        <th>Dividend yield</th>
-        <th>Yield On Cost</th>
+        <th>Daily change ($)</th>
+        <th>Daily change (%)</th>
     </tr>
     </thead>
     <tbody>
@@ -62,8 +60,8 @@
         <td id="totalProfit">$0.00</td>
         <td id="percentageProfit">0.00%</td>
         <td id="totalDividends">$0.00</td>
-        <td id="dividendYield">0%</td>
-        <td id="yieldOnCost">0%</td>
+        <td id="dailyChangeMoney">$0</td>
+        <td id="dailyChangePercent">0%</td>
     </tr>
     </tbody>
 </table>

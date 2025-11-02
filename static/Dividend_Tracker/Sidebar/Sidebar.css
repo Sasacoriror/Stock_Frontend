@@ -5,6 +5,7 @@ body {
 }
 
 .sidenav {
+    position: fixed;
     height: 100%;
     width: 200px;
     background: rgb(18, 18, 18); /* dark blue-gray */
