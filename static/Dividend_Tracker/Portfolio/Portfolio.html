@@ -35,7 +35,7 @@
     <select id="selectPortfolio">
 
     </select>
-    <button id="newPortfolio">+</button>
+    <button id="newPortfolio" onclick="openAddPortfolio()">+</button>
 </header>
 
 <div class="content1">
@@ -125,6 +125,18 @@
         </label>
 
         <button onclick="sendData()">Add</button>
+    </div>
+</div>
+
+<div id="addPortfolio" class="portfolio">
+    <div class="portfolio-content">
+        <span class="close" onclick="closePortfolioModal()">&times;</span>
+        
+        <label>Portfolio Name:
+            <input type="text" id="portfolioName" placeholder="Ex: Dividend Stocks" required>
+        </label>
+
+        <button onclick="createPortfolio()">add</button>
     </div>
 </div>
 

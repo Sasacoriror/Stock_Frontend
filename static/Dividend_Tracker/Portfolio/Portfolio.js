@@ -115,7 +115,7 @@ function renderSummary(stocks) {
     const percentage = ((profit) / totalCost) * 100;
 
     const positiveOrNegative = `$${profit >= 0 ? '+' : ''}${profit.toFixed(2)}`;
-    const percentagePoN = `${percentage >= 0 ? '+' : ''}${percentage.toFixed(2)}%`
+    const percentagePoN = `${percentage >= 0 ? '+' : ''}${percentage.toFixed(2)}%`;
 
 
     document.getElementById("totalInvested").textContent = `$${totalCost.toFixed(2)}`
@@ -176,6 +176,45 @@ function deleteRow(id) {
         .then(() => fetchStocks(IDs))
         .catch(error => console.error("Delete failed:", error));
 }
+
+
+function openAddPortfolio() {
+    document.getElementById("addPortfolio").style.display = "block";
+}
+
+async function createPortfolio(){
+    let name = document.getElementById("portfolioName").value;
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/v2/createPortfolio`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({name})
+        });
+
+        if (!response.ok){
+                throw new Error(`Error: ${response.status} ${response.statusText}`)
+            }
+
+        const data = await response.json();
+        console.log("Data: "+data.id+" || Name: "+portfolioName);
+        closePortfolioModal();
+        fetchStocks(data.id);
+    } catch(error){
+        alert(`Failed to send data: ${error.message}`);
+    }
+}
+
+function closePortfolioModal(){
+    document.getElementById("addPortfolio").style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("addPortfolio");
+    if (event.target === modal) {
+        closePortfolioModal();
+    }
+};
 
 //Load page
 fetchStocks(IDs);

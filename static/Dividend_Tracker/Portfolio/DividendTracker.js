@@ -11,8 +11,10 @@ async function sendData(){
         return;
     }
 
+    var id = IDs;
+    
     try {
-        const response = await fetch("http://localhost:8080/api/v1/storeStockData", {
+        const response = await fetch(`http://localhost:8080/api/v2/${id}/stocks`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
@@ -30,7 +32,7 @@ async function sendData(){
         console.log("Stock successfully added")
         emptyField();
         closeStockModal()
-        fetchStocks();
+        fetchStocks(IDs);
     }catch (error){
         alert(`Failed to send data: ${error.message}`)
     }
