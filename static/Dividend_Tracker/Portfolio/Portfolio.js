@@ -6,13 +6,18 @@ async function fetchPortfolios() {
         const data = await response.json();
         renderOptions(data);
 
-        if (data.length > 0) {
+        if (data.length > 1) {
+            const lastId = data.at(-1).id;
+            document.getElementById("selectPortfolio").value = lastId;
+            console.log("Loading last portfolio ID: "+ lastId);
+            fetchStocks(lastId);
+        } else {
             const firstId = data[0].id;
             document.getElementById("selectPortfolio").value = firstId;
-            console.log("Loading first portfolio: "+ firstId);
+            console.log("Loading first portfolio ID: "+ firstId);
             fetchStocks(firstId);
         }
-
+        // if (data.length > 0)
     } catch (error){
         console.log("Error fetching portfolios: "+error);
     }
@@ -20,6 +25,8 @@ async function fetchPortfolios() {
 
 function renderOptions(portfolios){
     const select = document.getElementById('selectPortfolio');
+
+    select.innerHTML = "";
 
     portfolios.forEach(data => {
         const option = document.createElement('option');
@@ -193,19 +200,21 @@ async function createPortfolio(){
         });
 
         if (!response.ok){
-                throw new Error(`Error: ${response.status} ${response.statusText}`)
+                throw new Error(`Error: ${response.status} ${response.statusText}`);
             }
 
         const data = await response.json();
-        console.log("Data: "+data.id+" || Name: "+portfolioName);
+        console.log("Data: "+data.id+" || Name: "+name);
         closePortfolioModal();
-        fetchStocks(data.id);
+        fetchPortfolios();
+        //fetchStocks(data.id);
     } catch(error){
         alert(`Failed to send data: ${error.message}`);
     }
 }
 
 function closePortfolioModal(){
+    document.getElementById("portfolioName").value = "";
     document.getElementById("addPortfolio").style.display = "none";
 }
 
