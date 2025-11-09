@@ -147,14 +147,13 @@ function openEditRow(id1, shares, price){
     document.getElementById("editShares").value = shares;
     document.getElementById("editPrice").value = price;
     document.getElementById("editModal").style.display = "block";
-    //console.log("ticker: "+id+" | Shares: "+shares+" | Price: "+price);
 }
 
 async function editRow(){
     let sharesInn = document.getElementById("editShares").value;
     let priceInn = document.getElementById("editPrice").value;
 
-    const response = await fetch(`http://localhost:8080/api/v1/updateData/${id}`, {
+    const response = await fetch(`http://localhost:8080/api/v1/updateData/${id}/${IDs}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json" },
         body: JSON.stringify({sharesInn, priceInn})
@@ -177,7 +176,7 @@ function closeEditModal() {
 }
 
 function deleteRow(id) {
-    fetch(`http://localhost:8080/api/v1/delete/${id}`, {
+    fetch(`http://localhost:8080/api/v1/delete/${id}/${IDs}`, {
         method: 'DELETE'
     })
         .then(() => fetchStocks(IDs))
@@ -201,13 +200,13 @@ async function createPortfolio(){
 
         if (!response.ok){
                 throw new Error(`Error: ${response.status} ${response.statusText}`);
-            }
+        }
 
         const data = await response.json();
         console.log("Data: "+data.id+" || Name: "+name);
         closePortfolioModal();
         fetchPortfolios();
-        //fetchStocks(data.id);
+
     } catch(error){
         alert(`Failed to send data: ${error.message}`);
     }
