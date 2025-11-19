@@ -17,7 +17,6 @@ async function fetchPortfolios() {
             console.log("Loading first portfolio ID: "+ firstId);
             fetchStocks(firstId);
         }
-        // if (data.length > 0)
     } catch (error){
         console.log("Error fetching portfolios: "+error);
     }
@@ -52,7 +51,7 @@ async function fetchStocks(id) {
         const response = await fetch(`http://localhost:8080/api/v2/${id}/stocks`);
         const data = await response.json();
         renderTable(data);
-        renderSummary(data);
+        getSummary(id);
     } catch (error) {
         console.error("Error fetching stock data: "+error);
     }
@@ -102,41 +101,46 @@ function renderTable(stocks) {
     });
 }
 
-function renderSummary(stocks) {
-    let totalValue = 0;
-    let totalCost = 0;
-    let totalDividends = 0;
+async function getSummary(id){
+    try {
+        const response = await fetch(`http://localhost:8080/api/v2/${id}/summary`);
+        const data = await response.json();
+        renderSummary2(data);
+    } catch (error) {
+        console.error("Error fetching stock data: "+error);
+    }
+}
 
-    stocks.forEach(stock => {
-        const shares = parseFloat(stock.sharesInn);
-        const buyPrice = parseFloat(stock.priceInn);
-        const currentPrice = parseFloat(stock.currentPrice);
-        const totalDividend = parseFloat(stock.totalDividend);
+function renderSummary2(stock){
+    const tbody = document.querySelector('#summaryTable tbody');
+    tbody.innerHTML = '';
 
-        totalValue += currentPrice * shares;
-        totalCost += buyPrice * shares;
-        totalDividends += totalDividend;
-    });
+    const tr = document.createElement('tr');
 
-    const profit = totalValue - totalCost;
-    const percentage = ((profit) / totalCost) * 100;
+        ['total_Invested', 'Total_Value', 'unrealised_Gain_Loss', 'percentage_Gain_Loss', 'yearly_Dividend_Income', 'daily_Change', 'daily_Change_Percentage'].forEach(key => {
+            const td = document.createElement('td');
+            let value = stock[key];
 
-    const positiveOrNegative = `$${profit >= 0 ? '+' : ''}${profit.toFixed(2)}`;
-    const percentagePoN = `${percentage >= 0 ? '+' : ''}${percentage.toFixed(2)}%`;
+            if (['percentage_Gain_Loss', 'daily_Change_Percentage'].includes(key)) {
+                value = `${parseFloat(value).toFixed(2)}%`;
+            } else if (['total_Invested', 'Total_Value', 'unrealised_Gain_Loss', 'yearly_Dividend_Income', 'daily_Change', 'return'].includes(key)){
+                value = `$${parseFloat(value).toFixed(2)}`;
+            }
 
+            td.textContent = value;
 
-    document.getElementById("totalInvested").textContent = `$${totalCost.toFixed(2)}`
-    document.getElementById("totalValue").textContent = `$${totalValue.toFixed(2)}`;
-    document.getElementById("totalDividends").textContent = `$${totalDividends.toFixed(2)}`;
+            if (key === 'unrealised_Gain_Loss' || key === 'percentage_Gain_Loss' || key === 'daily_Change' || key === 'daily_Change_Percentage') {
+                const numbers = parseFloat(value.replace(/[^0-9.-]/g, ''));
+                console.log(numbers);
+                if (!isNaN(numbers)){
+                    td.style.color = numbers >= 0 ? 'green' : 'red';
+                }
+            }
 
-    const tProfit = document.getElementById("totalProfit");
-    const pProfit = document.getElementById("percentageProfit");
+            tr.appendChild(td);
+        });
 
-    tProfit.textContent = positiveOrNegative;
-    tProfit.style.color = profit >= 0 ? "green" : "red";
-
-    pProfit.textContent = percentagePoN;
-    pProfit.style.color = percentage >= 0 ? "green" : "red";
+    tbody.appendChild(tr);
 }
 
 let id= "";
