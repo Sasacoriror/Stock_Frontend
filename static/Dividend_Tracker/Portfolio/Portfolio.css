@@ -107,7 +107,7 @@ button {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     margin-top: 10%;
 
-    width: 70%;
+    width: 65%;
 }
 
 .content2 {
@@ -165,43 +165,7 @@ button {
 }
 
 #sidebar {
-  position: fixed; /* or absolute, depending on your layout */
   z-index: 2000; /* higher than header */
 }
 
-
-
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    th, td {
-        font-size: 0.9em;
-        padding: 8px;
-    }
-
-    h2 {
-        font-size: 1.2em;
-    }
-
-    button {
-        padding: 4px 8px;
-        font-size: 0.9em;
-    }
-}
-
-@media (max-width: 480px) {
-    table, #summaryTable {
-        font-size: 0.8em;
-    }
-
-    th, td {
-        padding: 6px;
-    }
-
-    h2 {
-        font-size: 1em;
-    }
-}
 

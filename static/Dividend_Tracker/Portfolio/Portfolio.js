@@ -91,8 +91,8 @@ function renderTable(stocks) {
         const actionTd = document.createElement('td');
         console.log("Update ID part1 : "+stock.id);
         actionTd.innerHTML = `
-            <button class="delete-btn" onclick="deleteRow('${stock.id}')">Delete</button>
-            <button class="edit-btn" onclick="openEditRow('${stock.id}', '${stock.sharesInn}', '${stock.priceInn}')">Edit</button>
+            <button class="delete-btn" id="delete-Btn" onclick="deleteRow('${stock.id}')">Delete</button>
+            <button class="edit-btn" id="edit-Btn" onclick="openEditRow('${stock.id}', '${stock.sharesInn}', '${stock.priceInn}')">Edit</button>
         `;
         console.log("Update ID part2 : "+stock.id);
         tr.dataset.id = stock.id;

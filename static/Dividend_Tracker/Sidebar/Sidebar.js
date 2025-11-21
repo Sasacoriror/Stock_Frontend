@@ -1,3 +1,4 @@
 function toggleSidebar() {
-    document.getElementById("sidenav").classList.toggle("collapsed");
+    const sidenav = document.getElementById("sidenav");
+    sidenav.classList.toggle("open");
 }

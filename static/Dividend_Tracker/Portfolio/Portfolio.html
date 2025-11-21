@@ -39,7 +39,6 @@
 </header>
 
 <div class="content1">
-<!-- Summary Section -->
 <h2>Portfolio Summary</h2>
 <table id="summaryTable">
     <thead>
@@ -54,21 +53,13 @@
     </tr>
     </thead>
     <tbody>
-    <!--<tr>
-        <td id="totalInvested">$0.00</td>
-        <td id="totalValue">$0.00</td>
-        <td id="totalProfit">$0.00</td>
-        <td id="percentageProfit">0.00%</td>
-        <td id="totalDividends">$0.00</td>
-        <td id="dailyChangeMoney">$0</td>
-        <td id="dailyChangePercent">0%</td>
-    </tr>-->
+   
     </tbody>
 </table>
 </div>
 
 <div class="content2">
-    <button class="add-btn" onclick="openAddStock()">Add stocks</button>
+    <button class="add-btn" id="addStock-Btn" onclick="openAddStock()">Add stocks</button>
 <!-- Stocks Table -->
 <h2>Stock Table</h2>
 <table id="stocksTable">
@@ -104,7 +95,7 @@
         <label for="editPrice">Avg Price per Share ($):</label>
         <input type="number" id="editPrice">
 
-        <button onclick="editRow()">Save</button>
+        <button id="addEdited-Bn" onclick="editRow()">Save</button>
     </div>
 </div>
 
@@ -124,7 +115,7 @@
             <input type="number" id="shares" placeholder="Ex: 5" required>
         </label>
 
-        <button onclick="sendData()">Add</button>
+        <button id="addPortfolio-Btn" onclick="sendData()">Add</button>
     </div>
 </div>
 
@@ -136,7 +127,7 @@
             <input type="text" id="portfolioName" placeholder="Ex: Dividend Stocks" required>
         </label>
 
-        <button onclick="createPortfolio()">add</button>
+        <button id="addNewPortfolio-Btn" onclick="createPortfolio()">add</button>
     </div>
 </div>
 

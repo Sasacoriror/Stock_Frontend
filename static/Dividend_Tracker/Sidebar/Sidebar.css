@@ -1,75 +1,39 @@
-body {
-    margin: 0;
-    font-family: "Arial", sans-serif;
-    display: flex;
-}
-
+/* Sidebar default hidden (collapsed) */
 .sidenav {
-    position: fixed;
-    height: 100%;
-    width: 200px;
-    background: rgb(18, 18, 18); /* dark blue-gray */
     position: fixed;
     top: 0;
     left: 0;
-    transition: width 0.3s;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    font-size: 25px;
+    width: 220px;
+    height: 100%;
+    background: #222;
+    padding-top: 20px;
+    transform: translateX(-100%);   /* Hidden off-screen */
+    transition: transform 0.3s ease;
+    z-index: 3000;
 }
 
-/* Collapsed sidebar */
-.sidenav.collapsed {
-    width: 70px;
+/* When open */
+.sidenav.open {
+    transform: translateX(0);
 }
 
-/* Sidebar button */
 .toggle-btn {
-    background: #334155;
+    position: fixed;
+    top: 1%;
+    left: 1%;
+    font-size: 170%;
+    background: transparent;
     border: none;
     color: white;
-    padding: 12px;
     cursor: pointer;
-    text-align: left;
-    font-size: 20px;
+    z-index: 4000;   
 }
 
-/* Menu items */
-.menu {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
 
 .menu a {
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    text-decoration: none;
+    display: block;
     color: white;
-    transition: background 0.2s;
-}
-
-.menu a:hover {
-    background: #475569;
-}
-
-/* Icons */
-.menu a i {
-    font-size: 20px;
-    width: 40px; /* keeps alignment */
-    text-align: center;
-}
-
-/* Hide text when collapsed */
-.sidenav.collapsed .menu a span {
-    display: none;
-}
-
-/* Content */
-.content {
-    flex: 1;
-    padding: 20px;
-    background: #f1f5f9;
+    margin-top: 15%;
+    padding: 5% 10%;
+    text-decoration: none;
 }
