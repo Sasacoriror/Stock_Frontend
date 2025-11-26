@@ -5,7 +5,7 @@ async function fetchWatchlist() {
         const response = await fetch(apiUrl);
         const data = await response.json();
         renderTable(data);
-        renderSummary(data);
+        //renderSummary(data);
     } catch (error) {
          const summaryElement = document.getElementById("summary");
             const count = data.length;
@@ -20,14 +20,18 @@ function renderTable(watchList) {
     watchList.forEach((watchlist) => {
         const tr = document.createElement('tr');
 
-        ['stockTickerInn', 'companyName', 'latestPrice', 'marcet_Cap', 'dividendYield'].forEach(key => {
+        ['stockTickerInn', 'companyName', 'latestPrice', 'change_Price', 'change_Percentage', 'weeksRange','dividendYield', 'PE_Ratio', 'market_Cap'].forEach(key => {
             const td = document.createElement('td');
             let value = watchlist[key];
 
-            if (['marcet_Cap'].includes(key)){
+            if (key === 'weeksRange') {
+                value = `$${watchlist.low} - $${watchlist.High}`;
+            }
+
+            if (['market_Cap'].includes(key)){
                 value = parseFloat(value);
 
-                if (key === 'marcet_Cap') {
+                if (key === 'market_Cap') {
                    if (value >= 1e12) {
                        value = `$${(value / 1e12).toFixed(2)}T`;
                    } else if (value >= 1e9) {
@@ -38,11 +42,11 @@ function renderTable(watchList) {
                       value = `$${(value / 1e3).toFixed(2)}K`;
                    }
                 }
-            } else if(['latestPrice'].includes(key)){
+            } else if(['latestPrice', 'change_Price', ].includes(key)){
                 value = `$${parseFloat(value).toFixed(2)}`;
             }
 
-            if (['dividendYield'].includes(key)){
+            if (['change_Percentage', 'dividendYield'].includes(key)){
                 value = `${parseFloat(value).toFixed(2)}%`;
             }
 

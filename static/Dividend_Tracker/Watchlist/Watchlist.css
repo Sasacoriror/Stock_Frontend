@@ -80,7 +80,7 @@ button {
 }
 
 #watchlistTable th, #watchlistTable td {
-    padding: 12px 63px;
+    padding: 0.75rem 2.0rem;
     border: 1px solid #ccc;
     text-align: center;
     font-weight: bold;
