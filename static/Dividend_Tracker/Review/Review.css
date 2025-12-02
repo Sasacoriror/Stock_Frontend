@@ -61,6 +61,17 @@ h2 {
     border-radius: 10px;
 }
 
+.remove-btn {
+    background-color: red;
+    color: white;
+    width: 100%;
+    border: none;
+    padding: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
 .content {
     border: 2px solid black;
     border-radius: 50px;

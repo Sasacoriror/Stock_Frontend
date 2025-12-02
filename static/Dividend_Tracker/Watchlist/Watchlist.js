@@ -1,5 +1,15 @@
 const apiUrl = "http://localhost:8080/api/v1/Watchlist";
 
+document.addEventListener("DOMContentLoaded", () => {
+            fetch("../Sidebar/Sidebar.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("sidebar").innerHTML = data;
+                    const link = document.createElement("link");
+                    document.head.appendChild(link);
+                });
+        });
+
 async function fetchWatchlist() {
     try {
         const response = await fetch(apiUrl);
@@ -42,7 +52,7 @@ function renderTable(watchList) {
                       value = `$${(value / 1e3).toFixed(2)}K`;
                    }
                 }
-            } else if(['latestPrice', 'change_Price', ].includes(key)){
+            } else if(['latestPrice', 'change_Price'].includes(key)){
                 value = `$${parseFloat(value).toFixed(2)}`;
             }
 
