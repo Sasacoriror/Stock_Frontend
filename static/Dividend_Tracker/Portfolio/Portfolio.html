@@ -83,6 +83,21 @@
     <!-- Rows will be inserted here -->
     </tbody>
 </table>
+<div class="pagination">
+        <button id="back-btn">Back</button>
+        <span id="pageInfo"></span>
+        <button id="next-btn">Next</button>
+    </div>
+    <div style="text-align: right; margin-bottom: 10px;">
+        <label for="rowsPerPage">Rows Per Page: </label>
+        <select id="rowsPerPage">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+        </select>
+    </div>
 </div>
 
 <div id="editModal" class="modal">

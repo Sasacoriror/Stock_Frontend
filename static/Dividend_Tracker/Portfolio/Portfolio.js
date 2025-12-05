@@ -43,12 +43,41 @@ function renderOptions(portfolios){
 
 var IDs = 0;
 
+
+let pageSize = 10;
+let currentPage = 0;
+
+const rowSelect = document.getElementById('rowsPerPage');
+const backBtn = document.getElementById('back-btn');
+const nextBtn = document.getElementById('next-btn');
+const pageInfo = document.getElementById('pageInfo');
+
+rowSelect.addEventListener('change', ()=> {
+    pageSize = parseInt(rowSelect.value);
+    currentPage = 0;
+    fetchStocks(IDs);
+});
+
+backBtn.addEventListener('click', () => {
+    if (currentPage > 0){
+        currentPage--;
+        fetchStocks(IDs);
+    }
+});
+
+nextBtn.addEventListener('click', () => {
+    if (!nextBtn.disabled){
+        currentPage++;
+        fetchStocks(IDs);
+    }
+});
+
 async function fetchStocks(id) {
 
     IDs = id;
     
     try {
-        const response = await fetch(`http://localhost:8080/api/v2/${id}/stocks`);
+        const response = await fetch(`http://localhost:8080/api/v2/${id}/stocks?page=${currentPage}&size=${pageSize}`);
         const data = await response.json();
         renderTable(data);
         getSummary(id);
@@ -62,11 +91,14 @@ function renderTable(stocks) {
     const tbody = document.querySelector('#stocksTable tbody');
     tbody.innerHTML = '';
 
-    stocks.forEach((stock) => {
+    stocks.content.forEach((stock) => {
         const tr = document.createElement('tr');
 
-        ['stockTickerInn', 'companyName', 'priceInn', 'sharesInn', 'currentPrice', 'dividend', 'totalDividend', 'totalPrice', 'totalInvested', 'return', 'percentageReturn'].forEach(key => {
-            const td = document.createElement('td');
+        const fields = ['stockTickerInn', 'companyName', 'priceInn', 'sharesInn', 'currentPrice', 'dividend', 'totalDividend', 'totalPrice', 'totalInvested', 'return', 'percentageReturn'];
+            
+        fields.forEach(key => {
+        
+        const td = document.createElement('td');
             let value = stock[key];
 
             if (['percentageReturn'].includes(key)) {
@@ -87,6 +119,7 @@ function renderTable(stocks) {
 
             tr.appendChild(td);
         });
+        
 
         const actionTd = document.createElement('td');
         console.log("Update ID part1 : "+stock.id);
@@ -99,11 +132,16 @@ function renderTable(stocks) {
         tr.appendChild(actionTd);
         tbody.appendChild(tr);
     });
+
+    pageInfo.textContent = `Page ${currentPage + 1} of ${stocks.totalPages}`;
+
+    backBtn.disabled = stocks.first;
+    nextBtn.disabled = stocks.last;
 }
 
 async function getSummary(id){
     try {
-        const response = await fetch(`http://localhost:8080/api/v2/${id}/summary`);
+        const response = await fetch(`http://localhost:8080/api/v2/${id}/summary2`);
         const data = await response.json();
         renderSummary2(data);
     } catch (error) {

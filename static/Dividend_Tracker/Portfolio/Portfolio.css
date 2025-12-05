@@ -168,4 +168,11 @@ button {
   z-index: 2000; /* higher than header */
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
 
