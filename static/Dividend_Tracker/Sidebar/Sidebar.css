@@ -37,3 +37,8 @@
     padding: 5% 10%;
     text-decoration: none;
 }
+
+.menu a.selected {
+    background: #444;
+    border-left: 4px solid #4aa3ff;
+}
