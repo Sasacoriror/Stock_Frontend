@@ -31,13 +31,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.toggleSidebar = toggleSidebar;
 
+    document.addEventListener("click", (e) => {
+        const sidenav = document.getElementById("sidenav");
+        if (!sidenav.classList.contains("open")) return;
+        if (sidenav.contains(e.target)) return;
+        sidenav.classList.remove("open");
+    });
+
     
     document.addEventListener('keydown', (e) => {
         const sidenav = document.getElementById("sidenav");
 
+        if (e.key === "Enter" && !sidenav.classList.contains("open")){
+            toggleSidebar();
+            return;
+        }
+
         if (!sidenav.classList.contains("open")) return;
 
-        if (links.length === 0) return;
+        //if (sidenav.contains(e.target)) return;
+
+        //sidenav.classList.remove("open");
+
+        //if (links.length === 0) return;
 
         if (e.key === "ArrowDown") {
             links[selectedIndex].classList.remove("selected");
