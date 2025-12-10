@@ -33,8 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener("click", (e) => {
         const sidenav = document.getElementById("sidenav");
+        const toggle_btn = document.querySelector(".toggle-btn");
         if (!sidenav.classList.contains("open")) return;
         if (sidenav.contains(e.target)) return;
+        if (toggle_btn.contains(e.target)) return;
         sidenav.classList.remove("open");
     });
 
