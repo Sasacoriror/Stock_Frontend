@@ -67,6 +67,10 @@ body {
     flex-shrink: 0;
 }
 
+.site-name {
+    margin-left: 1%;
+}
+
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
