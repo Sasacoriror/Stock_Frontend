@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Review Stock</title>
+    <title>Stock Dashboard</title>
     <script src="Review.js" defer></script>
+    <script src="Tab.js" defer></script>
     <link rel="stylesheet" href="Review.css">
     <script src="../Sidebar/Sidebar.js" defer></script>
     
@@ -17,7 +18,7 @@
 </header>
 
 <div class="content">
-    <h2>Watchlist</h2>
+    <h2>Stock Data</h2>
     <table id="searchTable1">
         <thead>
         <tr>
@@ -32,6 +33,81 @@
         <tbody>
         </tbody>
     </table>
+</div>
+
+<div class="stockInformation">
+    <div class="dataMenu">
+        <div class="tab-item active" onclick="switchTab('summary')">Summary</div>
+        <div class="tab-item" onclick="switchTab('dividend')">Dividend</div>
+        <!--<div class="tab-item" onclick="switchTab('financials')">Financials</div>-->
+    </div>
+
+    <div class="tab-container">
+
+        <div id="summary" class="tab-content" style="display:block;">
+            <div class="chart-box">
+                <h3>Stock Price Over Time</h3>
+                <canvas id="priceChart" class="chart-canvas"></canvas>
+            </div>
+
+            <div class="info-box">
+                <h3>Earnings Per Share (EPS)</h3>
+                <p id="epsValue">EPS: --</p>
+            </div>
+
+            <div class="desc-box">
+                <h3>Company Description</h3>
+                <p id="companyDesc">Description will appear here...</p>
+            </div>
+        </div>
+
+        <div id="dividend" class="tab-content">
+            <h3>Dividend History</h3>
+            <div class="dividend-grid">
+                <div class="dividend-card"><h4>Frequenzy</h4><p>--</p></div>
+                <div class="dividend-card"><h4>Latest Dividend Date</h4><p>--</p></div>
+                <div class="dividend-card"><h4>Ex Dividend Date</h4><p>--</p></div>
+                <div class="dividend-card"><h4>Annual Income</h4><p>--</p></div>
+                <div class="dividend-card"><h4>Quartely Income</h4><p>--</p></div>
+            </div>
+            <table id="dividendTable" class="dividend-table">
+                <thead>
+                    <tr><th>Declared Date</th><th>Ex Dividend Date</th><th>Record Date</th><th>Payment Date</th><th>Frequenzy</th><th>Amount</th><th>Change</th></tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <button id="back-btn">Back</button>
+                <span id="pageInfo"></span>
+                <button id="next-btn">Next</button>
+            </div>
+            <div style="text-align: right; margin-bottom: 10px;">
+                <label for="rowsPerPage">Rows Per Page: </label>
+                <select id="rowsPerPage">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25" selected>25</option>
+                </select>
+            </div>
+        </div>
+<!--
+        <div id="financials" class="tab-content">
+            <h3>Financial Overview</h3>
+            <div class="finance-grid">
+                <div class="finance-card"><h4>Revenue</h4><p>--</p></div>
+                <div class="finance-card"><h4>Net Income</h4><p>--</p></div>
+                <div class="finance-card"><h4>Debt</h4><p>--</p></div>
+                <div class="finance-card"><h4>Market Cap</h4><p>--</p></div>
+            </div>
+        </div>
+    -->
+        
+    </div>
 </div>
 
 </body>
