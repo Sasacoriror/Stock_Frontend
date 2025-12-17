@@ -4,17 +4,19 @@ body {
     background: white;
 }
 
-header {
+.searchHeader {
+    position: sticky;
+
+    top: 0;
+    z-index: 1000;
     background-color: rgb(18, 18, 18);
     color: white;
-    /*width: 100%;*/
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 0.5rem;
     padding: 1rem;
     box-shadow: 0 2px 6px rgba(41, 111, 202, 0.541);
-    gap: 0.5rem;
-    z-index: 1000;
 }
 
 #stockInput {
@@ -158,10 +160,18 @@ h2 {
 }
 
 /* DIVIDEND SECTION */
-.dividend-table {
+.dividend-table, .dividend-Cagr {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 2%;
 }
+
+.dividend-Cagr th, .dividend-Cagr td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
 .dividend-table th, .dividend-table td {
     border: 1px solid #ddd;
     padding: 10px;

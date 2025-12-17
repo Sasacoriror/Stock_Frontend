@@ -26,8 +26,7 @@ async function sendTicker() {
         }
 
         showBasicStockTable(data);
-        getDividendHistory(ticker);
-        //getSummaryAndDividendData(ticker);
+        getSummaryAndDividendData(ticker);
         console.log("Stock successfully added")
     }catch (error){
         alert(`Failed to send data: ${error.message}`)
@@ -117,39 +116,6 @@ async function removeFromWatchlist(id, ticker, button) {
     }
 }
 
-
-async function getSummaryAndDividendData(ticker) {
-    try {
-        const response1 = await fetch(`http://localhost:8080/api/v1/searchSummary/${ticker}`);
-        const data1 = await response1.json();
-
-        const response2 = await fetch(`http://localhost:8080/api/v1/searchDividendSummary/${ticker}`);
-        const data2 = await response1.json();
-
-        if (!response1.ok){
-            throw new Error(`Error: ${response1.status} ${response1.statusText}`);
-        } else if (!response2.ok){
-            throw new Error(`Error: ${response2.status} ${response2.statusText}`);
-        }
-
-
-        getSummaryData(data1);
-        getDividendData(data2);
-        console.log("Data succesfully pulled");
-    }catch (error){
-        alert(`Failed to send data: ${error.message}`);
-    }
-}
-
-function getSummaryData(summary){
-
-}
-
-function getDividendData(dividend){
-
-}
-
-
 let pageSize = 25;
 let currentPage = 0;
 
@@ -161,39 +127,112 @@ const pageInfo = document.getElementById('pageInfo');
 rowSelect.addEventListener('change', ()=> {
     pageSize = parseInt(rowSelect.value);
     currentPage = 0;
-    getDividendHistory(ticker);
+    getSummaryAndDividendData(ticker);
 });
 
 backBtn.addEventListener('click', () => {
     if (currentPage > 0){
         currentPage--;
-        getDividendHistory(ticker);
+        getSummaryAndDividendData(ticker);
     }
 });
 
 nextBtn.addEventListener('click', () => {
     if (!nextBtn.disabled){
         currentPage++;
-        getDividendHistory(ticker);
+        getSummaryAndDividendData(ticker);
     }
 });
 
 
-async function getDividendHistory(ticker){
-
+async function getSummaryAndDividendData(ticker) {
     try {
-        const response = await fetch(`http://localhost:8080/api/v1/searchDividendHistory/${ticker}?page=${currentPage}&size=${pageSize}`);
-        const data = await response.json();
+        const response1 = await fetch(`http://localhost:8080/api/v1/searchSummary/${ticker}`);
+        const data1 = await response1.json();
 
-        if (!response.ok){
-            throw new Error(`Error: ${response.status} ${response.statusText}`)
+        const response2 = await fetch(`http://localhost:8080/api/v1/searchDividendSummary/${ticker}`);
+        const data2 = await response2.json();
+
+        const response3 = await fetch(`http://localhost:8080/api/v1/searchDividendHistory?page=${currentPage}&size=${pageSize}`);
+        const data3 = await response3.json();
+
+        if (!response1.ok && !response2.ok && !response3.ok){
+            throw new Error(`Error: ${response1.status} ${response1.statusText} \n
+                ${response2.status} ${response2.statusText} \n
+                ${response3.status} ${response3.statusText}`);
+        } else if (!response1.ok){
+            throw new Error(`Error: ${response1.status} ${response1.statusText}`);
+        } else if (!response2.ok){
+            throw new Error(`Error: ${response2.status} ${response2.statusText}`);
+        } else  if (!response3.ok){
+            throw new Error(`Error: ${response3.status} ${response3.statusText}`)
         }
 
-        setDividendHistory(data)
-        console.log("Stock successfully added")
+
+        getSummaryData(data1);
+        getDividendData(data2);
+        setDividendHistory(data3);
+        console.log("Data succesfully pulled");
     }catch (error){
-        alert(`Failed to send data: ${error.message}`)
+        alert(`Failed to send data: ${error.message}`);
     }
+}
+
+function getSummaryData(summary){
+
+    document.querySelectorAll("#summary [data-field]").forEach(element => {
+        const field = element.getAttribute("data-field");
+        if (summary[field] !== undefined && summary[field] !== null){
+            element.textContent = summary[field];
+        }
+    });
+}
+
+function getDividendData(dividend){
+
+    document.querySelectorAll("#dividend [data-field]").forEach(element => {
+        const field = element.getAttribute("data-field");
+        if (dividend[field] !== undefined && dividend[field] !== null){
+            element.textContent = dividend[field];
+        }
+    });
+
+
+    const tbody = document.querySelector('#dividendCagr tbody');
+    tbody.innerHTML = '';
+
+    const tr = document.createElement('tr');
+
+    ['Dividend_Growth_1_year', 'Dividend_Growth_3_year', 'Dividend_Growth_5_year', 'Dividend_Growth_10_year'].forEach(key => {
+        const td = document.createElement('td');
+        let value = dividend[key];
+
+        if (value === null || value === undefined) {
+            value = '--';
+        } else if (['Dividend_Growth_1_year', 'Dividend_Growth_3_year', 'Dividend_Growth_5_year', 'Dividend_Growth_10_year'].includes(key)){
+            value = `${parseFloat(value).toFixed(2)}%`;
+        }
+
+        td.textContent = value;
+
+        if (['Dividend_Growth_1_year', 'Dividend_Growth_3_year', 'Dividend_Growth_5_year', 'Dividend_Growth_10_year']) {
+            const numbers = parseFloat(value.replace(/[^0-9.-]/g, ''));
+            console.log(numbers);
+            if (!isNaN(numbers)){
+                if (numbers > 0){
+                td.style.color = 'green';
+                } else if (numbers < 0){
+                td.style.color = 'red';
+                } else {
+                td.style.color = '';
+                }
+            }
+        }
+
+        tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
 }
 
 function setDividendHistory(dh){

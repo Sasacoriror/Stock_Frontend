@@ -12,7 +12,7 @@
 <body>
 <div id="sidebar"></div>
 
-<header>
+<header class="searchHeader">
     <input type="text" id="stockInput" placeholder="Search stock...">
     <button id="searchBtn" onclick="sendTicker()">Search</button>
 </header>
@@ -57,19 +57,29 @@
 
             <div class="desc-box">
                 <h3>Company Description</h3>
-                <p id="companyDesc">Description will appear here...</p>
+                <p data-field="Description_Of_Company">Description will appear here...</p>
             </div>
         </div>
 
         <div id="dividend" class="tab-content">
             <h3>Dividend History</h3>
             <div class="dividend-grid">
-                <div class="dividend-card"><h4>Frequenzy</h4><p>--</p></div>
-                <div class="dividend-card"><h4>Latest Dividend Date</h4><p>--</p></div>
-                <div class="dividend-card"><h4>Ex Dividend Date</h4><p>--</p></div>
-                <div class="dividend-card"><h4>Annual Income</h4><p>--</p></div>
-                <div class="dividend-card"><h4>Quartely Income</h4><p>--</p></div>
+                <div class="dividend-card"><h4>Frequenzy</h4><p data-field="Frequenzy">--</p></div>
+                <div class="dividend-card"><h4>Latest Dividend Date</h4><p data-field="Latest_Dividend_Date">--</p></div>
+                <div class="dividend-card"><h4>Ex Dividend Date</h4><p data-field="Ex_Dividend_Date">--</p></div>
+                <div class="dividend-card"><h4>Annual Income</h4><p data-field="Annual_Income">--</p></div>
+                <div class="dividend-card"><h4>Latest Dividend Income</h4><p data-field="Quarterly_income">--</p></div>
             </div>
+
+            <table id="dividendCagr" class="dividend-Cagr">
+                <thead>
+                    <tr><th>1 year Dividend CAGR</th><th>3 year Dividend CAGR</th><th>5 year Dividend CAGR</th><th>10 year Dividend CAGR</th></tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
             <table id="dividendTable" class="dividend-table">
                 <thead>
                     <tr><th>Declared Date</th><th>Ex Dividend Date</th><th>Record Date</th><th>Payment Date</th><th>Frequenzy</th><th>Amount</th><th>Change</th></tr>
