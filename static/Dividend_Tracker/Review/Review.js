@@ -169,6 +169,7 @@ async function getSummaryAndDividendData(ticker) {
         }
 
 
+        createPriceChart(data1);
         getSummaryData(data1);
         getDividendData(data2);
         setDividendHistory(data3);
@@ -176,6 +177,50 @@ async function getSummaryAndDividendData(ticker) {
     }catch (error){
         alert(`Failed to send data: ${error.message}`);
     }
+}
+
+let priceChartInstance = null;
+
+function createPriceChart(priceResponse) {
+    const prices = priceResponse.Prices.map(p => p.Closing_Price);
+
+    const labels = prices.map((_, index) => `Day ${index + 1}`);
+
+    const canvas = document.getElementById('priceChart');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    if(priceChartInstance) {
+        priceChartInstance.destroy();
+    }
+
+    priceChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Closing Price ($)',
+                data: prices,
+                tension: 0.3,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            Animation: false,
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Price (USD)'
+                    }
+                }
+                
+            }
+        }
+    });
 }
 
 function getSummaryData(summary){
