@@ -202,8 +202,10 @@ function createPriceChart(priceResponse) {
             datasets: [{
                 label: 'Closing Price ($)',
                 data: prices,
-                tension: 0.3,
-                borderWidth: 2
+                borderWidth: 2,
+                borderColor: "blue",
+                backgroundColor: "rgba(0, 0, 255, 0.2)",
+                fill: true
             }]
         },
         options: {
