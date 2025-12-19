@@ -11,11 +11,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 //let placeHolder = "";
-let ticker = null;
+let ticker1 = null;
 
 async function sendTicker() {
-     ticker = document.getElementById("stockInput").value;
+    let ticker = document.getElementById("stockInput").value.trim();
+    if (!ticker) return;
+
+    window.history.pushState({}, "", `?ticker=${ticker}`);
+
+    await loadTicker(ticker);
+}
+
+async function loadTicker(ticker) {
+    //ticker = document.getElementById("stockInput").value;
     //placeHolder = ticker;
+    ticker1 = ticker;
 
     try {
         const response = await fetch(`http://localhost:8080/api/v1/search/${ticker}`);
@@ -127,20 +137,20 @@ const pageInfo = document.getElementById('pageInfo');
 rowSelect.addEventListener('change', ()=> {
     pageSize = parseInt(rowSelect.value);
     currentPage = 0;
-    getSummaryAndDividendData(ticker);
+    getSummaryAndDividendData(ticker1);
 });
 
 backBtn.addEventListener('click', () => {
     if (currentPage > 0){
         currentPage--;
-        getSummaryAndDividendData(ticker);
+        getSummaryAndDividendData(ticker1);
     }
 });
 
 nextBtn.addEventListener('click', () => {
     if (!nextBtn.disabled){
         currentPage++;
-        getSummaryAndDividendData(ticker);
+        getSummaryAndDividendData(ticker1);
     }
 });
 
@@ -332,3 +342,13 @@ function setDividendHistory(dh){
     nextBtn.disabled = dh.last;
     
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const tickerFromUrl = params.get("ticker");
+
+    if (tickerFromUrl) {
+        document.getElementById("stockInput").value = tickerFromUrl;
+        loadTicker(tickerFromUrl);
+    }
+});
