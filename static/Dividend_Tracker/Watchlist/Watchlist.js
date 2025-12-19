@@ -103,7 +103,7 @@ function renderTable(watchList) {
         tbody.appendChild(tr);
     });
 
-    pageInfo.textContent = `Page ${currentPage + 1} of ${watchList.totalPages}`;
+    pageInfo.textContent = `Page ${currentPage + 1} of ${watchList.page.totalPages}`;
 
     backBtn.disabled = watchList.first;
     nextBtn.disabled = watchList.last;

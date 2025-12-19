@@ -133,7 +133,7 @@ function renderTable(stocks) {
         tbody.appendChild(tr);
     });
 
-    pageInfo.textContent = `Page ${currentPage + 1} of ${stocks.totalPages}`;
+    pageInfo.textContent = `Page ${currentPage + 1} of ${stocks.page.totalPages}`;
 
     backBtn.disabled = stocks.first;
     nextBtn.disabled = stocks.last;
