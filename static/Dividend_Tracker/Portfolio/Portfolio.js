@@ -1,16 +1,19 @@
 window.addEventListener("DOMContentLoaded", fetchPortfolios);
 
+let reRun = 0;
+
 async function fetchPortfolios() {
     try {
         const response = await fetch("http://localhost:8080/api/v2/portfolios");
         const data = await response.json();
         renderOptions(data);
 
-        if (data.length > 1) {
+        if (reRun === 1) {
             const lastId = data.at(-1).id;
             document.getElementById("selectPortfolio").value = lastId;
             console.log("Loading last portfolio ID: "+ lastId);
             fetchStocks(lastId);
+            reRun = 0;
         } else {
             const firstId = data[0].id;
             document.getElementById("selectPortfolio").value = firstId;
@@ -37,15 +40,16 @@ function renderOptions(portfolios){
     select.addEventListener("change", (event) => {
         const selectedID = event.target.value;
         console.log("Portfolio ID: "+selectedID);
+        summaryPort = false;
         fetchStocks(selectedID);
     });
 }
 
-var IDs = 0;
-
+var IDs = 1;
 
 let pageSize = 10;
 let currentPage = 0;
+
 
 const rowSelect = document.getElementById('rowsPerPage');
 const backBtn = document.getElementById('back-btn');
@@ -79,8 +83,9 @@ async function fetchStocks(id) {
     try {
         const response = await fetch(`http://localhost:8080/api/v2/${id}/stocks?page=${currentPage}&size=${pageSize}`);
         const data = await response.json();
+
         renderTable(data);
-        getSummary(id);
+        getSummary(id);  
     } catch (error) {
         console.error("Error fetching stock data: "+error);
     }
@@ -221,7 +226,7 @@ function deleteRow(id) {
     fetch(`http://localhost:8080/api/v1/delete/${id}/${IDs}`, {
         method: 'DELETE'
     })
-        .then(() => fetchStocks(IDs))
+        .then(() =>{ fetchStocks(IDs);})
         .catch(error => console.error("Delete failed:", error));
 }
 
@@ -232,6 +237,8 @@ function openAddPortfolio() {
 
 async function createPortfolio(){
     let name = document.getElementById("portfolioName").value;
+
+    reRun = 1;
 
     try {
         const response = await fetch(`http://localhost:8080/api/v2/createPortfolio`, {
