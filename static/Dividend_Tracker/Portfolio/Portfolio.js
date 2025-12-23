@@ -99,22 +99,24 @@ function renderTable(stocks) {
     stocks.content.forEach((stock) => {
         const tr = document.createElement('tr');
 
-        const fields = ['stockTickerInn', 'companyName', 'priceInn', 'sharesInn', 'currentPrice', 'dividend', 'totalDividend', 'totalPrice', 'totalInvested', 'return', 'percentageReturn'];
+        const fields = ['stockTickerInn', 'companyName', 'priceInn', 'sharesInn', 'currentPrice', 'dividend', 'drip', 'totalDividend', 'totalPrice', 'totalInvested', 'return', 'percentageReturn', 'Todays_return_Dollars', 'Todays_return_Percentage'];
             
         fields.forEach(key => {
         
         const td = document.createElement('td');
             let value = stock[key];
 
-            if (['percentageReturn'].includes(key)) {
+            if (['percentageReturn', 'Todays_return_Percentage'].includes(key)) {
                 value = `${parseFloat(value).toFixed(2)}%`;
-            } else if (['priceInn', 'currentPrice', 'totalDividend', 'totalPrice', 'totalInvested', 'return'].includes(key)){
+            } else if (['priceInn', 'currentPrice', 'totalDividend', 'totalPrice', 'totalInvested', 'return', 'Todays_return_Dollars'].includes(key)){
                 value = `$${parseFloat(value).toFixed(2)}`;
+            } else if (['drip'].includes(key)) {
+                value = `${parseFloat(value).toFixed(2)}`;
             }
 
             td.textContent = value;
 
-            if (key === 'return' || key === 'percentageReturn') {
+            if (key === 'return' || key === 'percentageReturn' || key === 'Todays_return_Dollars' || key === 'Todays_return_Percentage') {
                 const numbers = parseFloat(value.replace(/[^0-9.-]/g, ''));
                 console.log(numbers);
                 if (!isNaN(numbers)){
