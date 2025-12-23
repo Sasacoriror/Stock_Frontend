@@ -31,8 +31,15 @@ label {
     font-weight: bold;
 }
 
-input, select {
+input {
     width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+select {
     padding: 8px;
     margin-top: 5px;
     border: 1px solid #ccc;
