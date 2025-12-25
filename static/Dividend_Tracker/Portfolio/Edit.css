@@ -71,6 +71,10 @@ button:hover {
     background-color: #575757;
 }
 
+#edit-Btn:hover {
+    background-color: #575757;
+}
+
 .stock-list {
     width: 100%;
     max-width: 600px;
