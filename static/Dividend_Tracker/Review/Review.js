@@ -178,8 +178,8 @@ async function getSummaryAndDividendData(ticker) {
             throw new Error(`Error: ${response3.status} ${response3.statusText}`)
         }
 
-
-        createPriceChart(data1);
+        console.log("The exchange is: "+data1.Exchange);
+        createPriceChart(data1.Exchange);
         getSummaryData(data1);
         getDividendData(data2);
         setDividendHistory(data3);
@@ -189,50 +189,33 @@ async function getSummaryAndDividendData(ticker) {
     }
 }
 
-let priceChartInstance = null;
 
 function createPriceChart(priceResponse) {
-    const prices = priceResponse.Prices.map(p => p.Closing_Price);
 
-    const labels = prices.map((_, index) => `Day ${index + 1}`);
+    const container = document.getElementById("priceChart");
+    container.innerHTML = "";
 
-    const canvas = document.getElementById('priceChart');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-
-    if(priceChartInstance) {
-        priceChartInstance.destroy();
+    if (!window.TradingView) {
+        console.error("TradingView library not loaded.");
+        return;
     }
 
-    priceChartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels,
-            datasets: [{
-                label: 'Closing Price ($)',
-                data: prices,
-                borderWidth: 2,
-                borderColor: "blue",
-                backgroundColor: "rgba(0, 0, 255, 0.2)",
-                fill: true
-            }]
-        },
-        options: {
-            responsive: false,
-            maintainAspectRatio: false,
-            Animation: false,
-            scales: {
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Price (USD)'
-                    }
-                }
-                
-            }
-        }
+    new TradingView.widget({
+        container_id: "priceChart",
+        style: 3,
+        symbol: priceResponse,
+        interval: "D",
+        theme: "light",
+        autosize: true,
+        hide_side_toolbar: true,
+        hide_top_toolbar: true,
+        allow_symbol_change: true,
+        locale: "en",
+        backgroundColor: "#ffffff",
+        gridColor: "rgba(242, 242, 242, 0.06)",
+        withdateranges: true
     });
+
 }
 
 function getSummaryData(summary){
