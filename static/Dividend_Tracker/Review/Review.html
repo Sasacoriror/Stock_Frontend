@@ -54,9 +54,12 @@
                 </div>
             </div>
 
-            <div class="info-box">
-                <h3>Earnings Per Share (EPS)</h3>
-                <p id="epsValue">EPS: --</p>
+            <h3>Stock Data</h3>
+            <div class="dividend-grid">
+                <div class="dividend-card"><h4>EPS</h4><p data-field="EPS">--</p></div>
+                <div class="dividend-card"><h4>P/E</h4><p data-field="PE">--</p></div>
+                <div class="dividend-card"><h4>Beta</h4><p data-field="Beta">--</p></div>
+                <div class="dividend-card"><h4>Market Cap</h4><p data-field="Beta">--</p></div>
             </div>
 
             <div class="desc-box">
@@ -66,7 +69,7 @@
         </div>
 
         <div id="dividend" class="tab-content">
-            <h3>Dividend History</h3>
+            <h3>Dividend Information</h3>
             <div class="dividend-grid">
                 <div class="dividend-card"><h4>Frequenzy</h4><p data-field="Frequenzy">--</p></div>
                 <div class="dividend-card"><h4>Latest Dividend Date</h4><p data-field="Latest_Dividend_Date">--</p></div>
@@ -75,6 +78,7 @@
                 <div class="dividend-card"><h4>Latest Dividend Income</h4><p data-field="Quarterly_income">--</p></div>
             </div>
 
+            <h3>Dividend CAGR</h3>
             <table id="dividendCagr" class="dividend-Cagr">
                 <thead>
                     <tr><th>1 year Dividend CAGR</th><th>3 year Dividend CAGR</th><th>5 year Dividend CAGR</th><th>10 year Dividend CAGR</th></tr>
@@ -84,6 +88,7 @@
                 </tbody>
             </table>
 
+            <h3>Dividend History</h3>
             <table id="dividendTable" class="dividend-table">
                 <thead>
                     <tr><th>Declared Date</th><th>Ex Dividend Date</th><th>Record Date</th><th>Payment Date</th><th>Frequenzy</th><th>Amount</th><th>Change</th></tr>

@@ -163,7 +163,7 @@ async function getSummaryAndDividendData(ticker) {
         const response2 = await fetch(`http://localhost:8080/api/v1/searchDividendSummary/${ticker}`);
         const data2 = await response2.json();
 
-        const response3 = await fetch(`http://localhost:8080/api/v1/searchDividendHistory?page=${currentPage}&size=${pageSize}`);
+        const response3 = await fetch(`http://localhost:8080/api/v1/searchDividendHistory?ticker=${ticker}&page=${currentPage}&size=${pageSize}`);
         const data3 = await response3.json();
 
         if (!response1.ok && !response2.ok && !response3.ok){
