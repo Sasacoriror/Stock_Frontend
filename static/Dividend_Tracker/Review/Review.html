@@ -56,14 +56,27 @@
 
             <h3>Stock Data</h3>
             <div class="dividend-grid">
-                <div class="dividend-card"><h4>EPS</h4><p data-field="EPS">--</p></div>
-                <div class="dividend-card"><h4>P/E</h4><p data-field="PE">--</p></div>
+                <div class="dividend-card"><h4>Trailing EPS</h4><p data-field="Trailing_EPS">--</p></div>
+                <div class="dividend-card"><h4>Forward EPS</h4><p data-field="Forward_EPS">--</p></div>
+                <div class="dividend-card"><h4>P/E</h4><p data-field="PE_Ratio">--</p></div>
+                <div class="dividend-card"><h4>Forward P/E</h4><p data-field="Forward_Pe">--</p></div>
                 <div class="dividend-card"><h4>Beta</h4><p data-field="Beta">--</p></div>
-                <div class="dividend-card"><h4>Market Cap</h4><p data-field="Beta">--</p></div>
+                <div class="dividend-card"><h4>Market Cap</h4><p data-field="Market_Cap">--</p></div>
             </div>
 
+            <h3>Analyst View</h3>
+            <table id="analyst" class="analyst-view">
+                <thead>
+                    <tr><th>Current Price</th><th>Target Mean</th><th>Target Low</th><th>Target High</th><th>Number of Analyst</th><th>Recommendation Mean</th><th>Recommendation Key</th></tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            
+            <h3>Company Description</h3>
             <div class="desc-box">
-                <h3>Company Description</h3>
+                
                 <p data-field="Description_Of_Company">Description will appear here...</p>
             </div>
         </div>

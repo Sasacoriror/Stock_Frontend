@@ -178,7 +178,7 @@ async function getSummaryAndDividendData(ticker) {
             throw new Error(`Error: ${response3.status} ${response3.statusText}`)
         }
 
-        console.log("The exchange is: "+data1.Exchange);
+        //console.log("The exchange is: "+data1.Exchange);
         createPriceChart(data1.Exchange);
         getSummaryData(data1);
         getDividendData(data2);
@@ -226,6 +226,28 @@ function getSummaryData(summary){
             element.textContent = summary[field];
         }
     });
+
+    const tbody = document.querySelector('#analyst tbody');
+    tbody.innerHTML = '';
+
+    const tr = document.createElement('tr');
+
+    ['current_price', 'target_mean', 'target_low', 'target_high', 'analyst_count', 'recommendation_mean', 'recommendation_key'].forEach(key => {
+        const td = document.createElement('td');
+        let value = summary[key];
+
+        if (value === null || value === undefined) {
+            value = '--';
+        } else if (['current_price', 'target_mean', 'target_low', 'target_high'].includes(key)){
+            value = `$${parseFloat(value).toFixed(2)}`;
+        }
+
+        td.textContent = value;
+
+        tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
 }
 
 function getDividendData(dividend){

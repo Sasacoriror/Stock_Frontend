@@ -52,6 +52,10 @@ h2 {
     text-align: center;
 }
 
+h3 {
+    padding-top: 3%;
+}
+
 .add-btn {
     background-color: green;
     color: white;
@@ -176,7 +180,7 @@ h2 {
 }
 
 /* DIVIDEND SECTION */
-.dividend-table, .dividend-Cagr{
+.dividend-table, .dividend-Cagr, .analyst-view{
     width: 100%;
     border-collapse: collapse;
     margin-top: 2%;
@@ -194,11 +198,16 @@ h2 {
     text-align: center;
 }
 
+.analyst-view th, .analyst-view td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
 .dividend-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    margin-bottom: 5%;
 }
 .dividend-card {
     background: white;
