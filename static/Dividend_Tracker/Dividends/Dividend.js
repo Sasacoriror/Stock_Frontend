@@ -15,6 +15,7 @@ async function getDividendData() {
         const response = await fetch(apiURL);
         const data = await response.json();
         renderDividendTable(data);
+        renderDividendCalender(data);
     } catch (error) {
         alert("Problem: "+error);
     }
@@ -42,6 +43,38 @@ function renderDividendTable(dividends) {
      });
 
      tbody.appendChild(tr);
+}
+
+function renderDividendCalender(calender){
+
+    const tbody = document.querySelector('#dividendCalender tbody');
+    tbody.innerHTML = '';
+
+    const rows = calender.Dividend_Payments || [];
+
+    rows.forEach(record => {
+
+        const tr = document.createElement('tr');
+
+        ['ticker', 'Company_Name', 'Ex_Date', 'Payment_Date', 'Frequency', 'Dividend_Yield', 'Dividend_Payment', 'IsPaid'].forEach(key => {
+            const td = document.createElement('td');
+            let value = record[key];
+
+            if(['Dividend_Payment'].includes(key)){
+                    value = `$${parseFloat(value).toFixed(2)}`;
+                }
+            if (['Dividend_Yield'].includes(key)){
+                    value = `${parseFloat(value).toFixed(2)}%`;
+                }
+
+            td.textContent = value;
+                tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+    
+     
+
 }
 
 getDividendData();
