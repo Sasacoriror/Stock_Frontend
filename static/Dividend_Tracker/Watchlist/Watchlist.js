@@ -72,15 +72,15 @@ function renderTable(watchList) {
                 value = parseFloat(value);
 
                 if (key === 'market_Cap') {
-                if (value >= 1e12) {
-                    value = `$${(value / 1e12).toFixed(2)}T`;
-                } else if (value >= 1e9) {
-                    value = `$${(value / 1e9).toFixed(2)}B`;
-                } else if (value >= 1e6) {
-                    value = `$${(value / 1e6).toFixed(2)}M`;
-                } else if (value >= 1e3) {
-                    value = `$${(value / 1e3).toFixed(2)}K`;
-                }
+                    if (value >= 1e12) {
+                        value = `$${(value / 1e12).toFixed(2)}T`;
+                    } else if (value >= 1e9) {
+                        value = `$${(value / 1e9).toFixed(2)}B`;
+                    } else if (value >= 1e6) {
+                        value = `$${(value / 1e6).toFixed(2)}M`;
+                    } else if (value >= 1e3) {
+                        value = `$${(value / 1e3).toFixed(2)}K`;
+                    }
                 }
             } else if(['latestPrice', 'change_Price'].includes(key)){
                 value = `$${parseFloat(value).toFixed(2)}`;

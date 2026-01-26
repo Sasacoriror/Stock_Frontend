@@ -51,7 +51,24 @@ function showBasicStockTable(searchData){
 
     ['ticker', 'company_Name', 'current_Stock_Price', 'days_Change_Dollars', 'days_Change_Percent'].forEach(key => {
         const td = document.createElement('td');
-        td.textContent = searchData[key];
+        let value = searchData[key];
+
+        if (['days_Change_Percent'].includes(key)) {
+            value = `${parseFloat(value).toFixed(2)}%`;
+        } else if (['current_Stock_Price', 'days_Change_Dollars'].includes(key)){
+            value = `$${parseFloat(value).toFixed(2)}`;
+        }
+
+        td.textContent = value ?? '';
+
+        if (key === 'days_Change_Dollars' || key === 'days_Change_Percent') {
+            const numbers = parseFloat(String(value).replace(/[^0-9.-]/g, ''));
+            console.log(numbers);
+            if (!isNaN(numbers)){
+                td.style.color = numbers >= 0 ? 'green' : 'red';
+            }
+        }
+
         tr.appendChild(td);
     });
 
@@ -223,7 +240,26 @@ function getSummaryData(summary){
     document.querySelectorAll("#summary [data-field]").forEach(element => {
         const field = element.getAttribute("data-field");
         if (summary[field] !== undefined && summary[field] !== null){
-            element.textContent = summary[field];
+
+            let value = summary[field];
+
+            if (field === 'Market_Cap'){
+                value = parseFloat(value);
+
+                if (!isNaN(value)) {
+                    if (value >= 1e12) {
+                        value = `$${(value / 1e12).toFixed(2)}T`;
+                    } else if (value >= 1e9) {
+                        value = `$${(value / 1e9).toFixed(2)}B`;
+                    } else if (value >= 1e6) {
+                        value = `$${(value / 1e6).toFixed(2)}M`;
+                    } else if (value >= 1e3) {
+                        value = `$${(value / 1e3).toFixed(2)}K`;
+                    }
+                }
+            }
+
+            element.textContent = value;
         }
     });
 
@@ -232,13 +268,13 @@ function getSummaryData(summary){
 
     const tr = document.createElement('tr');
 
-    ['current_price', 'target_mean', 'target_low', 'target_high', 'analyst_count', 'recommendation_mean', 'recommendation_key'].forEach(key => {
+    ['current_price',  'target_low', 'target_mean', 'target_high', 'analyst_count', 'recommendation_mean', 'recommendation_key'].forEach(key => {
         const td = document.createElement('td');
         let value = summary[key];
 
         if (value === null || value === undefined) {
             value = '--';
-        } else if (['current_price', 'target_mean', 'target_low', 'target_high'].includes(key)){
+        } else if (['current_price', 'target_low', 'target_mean','target_high'].includes(key)){
             value = `$${parseFloat(value).toFixed(2)}`;
         }
 
