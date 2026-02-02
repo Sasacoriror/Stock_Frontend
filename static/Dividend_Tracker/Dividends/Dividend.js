@@ -32,7 +32,7 @@ function renderDividendTable(dividends) {
         let value = dividends[key];
 
         if(['Annual_Dividend', 'Monthly_Dividend', 'Days_Dividend', 'Hourly_Dividend'].includes(key)){
-                value = `$${parseFloat(value).toFixed(2)}`;
+                value = `$${parseFloat(value)}`;
             }
         if (['Yield_On_Cost'].includes(key)){
                 value = `${parseFloat(value).toFixed(2)}%`;

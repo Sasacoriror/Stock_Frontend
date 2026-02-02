@@ -91,6 +91,15 @@ function renderTable(watchList) {
             }
 
             td.textContent = value;
+
+            if (key === 'change_Price' || key === 'change_Percentage') {
+                const numbers = parseFloat(String(value).replace(/[^0-9.-]/g, ''));
+                console.log(numbers);
+                if (!isNaN(numbers)){
+                    td.style.color = numbers >= 0 ? 'green' : 'red';
+                }
+            }
+
             tr.appendChild(td);
         });
 
