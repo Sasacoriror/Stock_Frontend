@@ -62,13 +62,21 @@ function renderDividendCalender(calender){
 
             if(['Dividend_Payment'].includes(key)){
                     value = `$${parseFloat(value).toFixed(2)}`;
-                }
+            }
             if (['Dividend_Yield'].includes(key)){
                     value = `${parseFloat(value).toFixed(2)}%`;
-                }
+            }
 
-            td.textContent = value;
-                tr.appendChild(td);
+            if (key === 'ticker') {
+                const link = document.createElement('a');
+                link.textContent = value;
+                link.href = "http://127.0.0.1:5500/static/Dividend_Tracker/Review/Review.html?ticker="+encodeURIComponent(value);
+                td.appendChild(link)
+            } else {
+                td.textContent = value;
+            }
+
+            tr.appendChild(td);
         });
         tbody.appendChild(tr);
     });

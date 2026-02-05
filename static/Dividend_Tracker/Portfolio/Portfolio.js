@@ -114,7 +114,14 @@ function renderTable(stocks) {
                 value = `${parseFloat(value).toFixed(2)}`;
             }
 
-            td.textContent = value;
+            if (key === 'stockTickerInn') {
+                const link = document.createElement('a');
+                link.textContent = value;
+                link.href = "http://127.0.0.1:5500/static/Dividend_Tracker/Review/Review.html?ticker="+encodeURIComponent(value);
+                td.appendChild(link)
+            } else {
+                td.textContent = value;
+            }
 
             if (key === 'return' || key === 'percentageReturn' || key === 'Todays_return_Dollars' || key === 'Todays_return_Percentage') {
                 const numbers = parseFloat(value.replace(/[^0-9.-]/g, ''));
