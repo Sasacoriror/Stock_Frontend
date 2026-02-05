@@ -59,10 +59,11 @@ function renderTable(watchList) {
 
         const fields = ['stockTickerInn', 'companyName', 'latestPrice', 'change_Price', 'change_Percentage', 'weeksRange','dividendYield', 'PE_Ratio', 'market_Cap'];
 
-
         fields.forEach(key => {
             const td = document.createElement('td');
             let value = item[key];
+
+            
 
             if (key === 'weeksRange') {
                 value = `$${item.low} - $${item.High}`;
@@ -90,7 +91,16 @@ function renderTable(watchList) {
                 value = `${parseFloat(value).toFixed(2)}%`;
             }
 
-            td.textContent = value;
+            
+
+            if (key === 'stockTickerInn') {
+                const link = document.createElement('a');
+                link.textContent = value;
+                link.href = "http://127.0.0.1:5500/static/Dividend_Tracker/Review/Review.html?ticker="+encodeURIComponent(value);
+                td.appendChild(link)
+            } else {
+                td.textContent = value;
+            }
 
             if (key === 'change_Price' || key === 'change_Percentage') {
                 const numbers = parseFloat(String(value).replace(/[^0-9.-]/g, ''));
