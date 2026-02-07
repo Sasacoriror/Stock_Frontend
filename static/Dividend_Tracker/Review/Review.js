@@ -263,27 +263,74 @@ function getSummaryData(summary){
         }
     });
 
-    const tbody = document.querySelector('#analyst tbody');
-    tbody.innerHTML = '';
+    const tbody1 = document.querySelector('#analyst tbody');
+    tbody1.innerHTML = '';
 
-    const tr = document.createElement('tr');
+    const tr1 = document.createElement('tr');
 
-    ['current_price',  'target_low', 'target_mean', 'target_high', 'analyst_count', 'recommendation_mean', 'recommendation_key'].forEach(key => {
-        const td = document.createElement('td');
+    ['current_price',  'target_low', 'target_mean', 'target_high', 'percentage_Gain', 'analyst_count', 'recommendation_mean', 'recommendation_key'].forEach(key => {
+        const td1 = document.createElement('td');
         let value = summary[key];
 
         if (value === null || value === undefined) {
             value = '--';
         } else if (['current_price', 'target_low', 'target_mean','target_high'].includes(key)){
             value = `$${parseFloat(value).toFixed(2)}`;
+        } else if (['percentage_Gain'].includes(key)) {
+            value = `${parseFloat(value).toFixed(2)}%`;
         }
 
-        td.textContent = value;
+        td1.textContent = value;
 
-        tr.appendChild(td);
+        if (['percentage_Gain'].includes(key) && value !== '--') {
+            const numbers = parseFloat(value.replace(/[^0-9.-]/g, ''));
+            console.log(numbers);
+            if (!isNaN(numbers)){
+                td1.style.color = numbers > 0 ? 'green' : 'red';
+            }
+        }
+
+        tr1.appendChild(td1);
     });
 
-    tbody.appendChild(tr);
+    tbody1.appendChild(tr1);
+
+
+    const tbody2 = document.querySelector('#priceGainLoss tbody');
+    tbody2.innerHTML = '';
+
+    const tr2 = document.createElement('tr');
+
+    ['one_Day', 'five_day', 'one_Month', 'six_Month', 'year_To_Date', 'one_Year', 'three_Year', 'five_Year', 'ten_Year'].forEach(key => {
+        const td2 = document.createElement('td');
+        let value = summary[key];
+
+        if (value === null || value === undefined) {
+            value = '--';
+        } else if (['one_Day', 'five_day', 'one_Month', 'six_Month', 'year_To_Date', 'one_Year', 'three_Year', 'five_Year', 'ten_Year'].includes(key)){
+            value = `${parseFloat(value).toFixed(2)}%`;
+        }
+
+        td2.textContent = value;
+
+        if (['one_Day', 'five_day', 'one_Month', 'six_Month', 'year_To_Date', 'one_Year', 'three_Year', 'five_Year', 'ten_Year']) {
+            const numbers = parseFloat(value.replace(/[^0-9.-]/g, ''));
+            console.log(numbers);
+            if (!isNaN(numbers)){
+                if (numbers > 0){
+                td2.style.color = 'green';
+                } else if (numbers < 0){
+                td2.style.color = 'red';
+                } else {
+                td2.style.color = '';
+                }
+            }
+        }
+
+        tr2.appendChild(td2);
+    });
+
+    tbody2.appendChild(tr2);
 }
 
 function getDividendData(dividend){

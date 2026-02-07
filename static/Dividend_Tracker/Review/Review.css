@@ -180,7 +180,7 @@ h3 {
 }
 
 /* DIVIDEND SECTION */
-.dividend-table, .dividend-Cagr, .analyst-view{
+.dividend-table, .dividend-Cagr, .analyst-view, .priceGainLoss-view{
     width: 100%;
     border-collapse: collapse;
     margin-top: 2%;
@@ -198,7 +198,7 @@ h3 {
     text-align: center;
 }
 
-.analyst-view th, .analyst-view td {
+.analyst-view th, .analyst-view td , .priceGainLoss-view th, .priceGainLoss-view td{
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
