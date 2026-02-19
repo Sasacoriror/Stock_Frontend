@@ -70,7 +70,7 @@ Dette er da hvordan watchlisten ser ut.
 
 
 
-Til slutt dett er side baren. Denne sidebaren kan åpnes entn ved å trykke på "☰" eller ved å trykke på "Enter" i keyboardet. Så kan den også beveges gjennom ved å trykke på pil opp eller ned. så til slutt kan brukeren trykke på "W" så vil den bevege seg til "Watchlist" eller trykke "F" og bevege seg til "Fear/Greed Index". For å lukke den så kan brukeren trykke på "☰", esc eller trykke hvor som helt på siden.
+Til slutt dett er side baren. Denne sidebaren kan åpnes entn ved å trykke på "☰" eller ved å trykke på "Enter" i keyboardet. Så kan den også beveges gjennom ved å trykke på pil opp eller ned. så til slutt kan brukeren trykke på "W" så vil den bevege seg til "Watchlist" eller trykke "F" og bevege seg til "Fear/Greed Index". For å lukke den så kan brukeren trykke på "☰", esc eller trykke hvor som helt på siden. Earnings sender brukeren til "Earning Hubs" siden, hvor brukeren kan se direkte hvordan siste kvartal gikk for aksjene deres. Så iste knappen vil sende brukeren til CNNs index som viser om markedet er Extreme Fear, Fear, Neutral,  Greed, eller Extreme Greed.
 
 ![image alt](https://github.com/Sasacoriror/Stock_Frontend/blob/4e04512088d29ed34909e4cd49d39e3c812528f7/Sidebar.png)
 
